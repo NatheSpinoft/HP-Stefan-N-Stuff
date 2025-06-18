@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stefan N Stuff - Homepage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+    
+</head>
+<body>
+
+    <header class="header">
+        <img src="https://via.placeholder.com/150" alt="Homepage Icon">
+        <h1>Homepage</h1>
+    </header>
+
+    <nav class="navbar navbar-expand-lg nav-bar">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="#">Home</a>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">Projects</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">AI Chatbot</a></li>
+                            <li><a class="dropdown-item" href="#">Inventory System</a></li>
+                            <li><a class="dropdown-item" href="#">Weather Dashboard</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-fluid main-content">
+        <section class="left">
+            <div class="card card-custom">
+                <h4>Other AI Tools</h4>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-robot"></i> <a href="https://chat.openai.com" target="_blank">ChatGPT</a></li>
+                    <li><i class="fas fa-paint-brush"></i> <a href="https://openai.com/dall-e" target="_blank">DALL·E</a></li>
+                    <li><i class="fas fa-code"></i> <a href="https://github.com/features/copilot" target="_blank">GitHub Copilot</a></li>
+                    <li><i class="fas fa-language"></i> <a href="https://www.deepl.com" target="_blank">DeepL</a></li>
+                    <li><i class="fas fa-microphone"></i> <a href="https://www.elevenlabs.io" target="_blank">ElevenLabs</a></li>
+                    <li><i class="fas fa-brain"></i> <a href="https://huggingface.co" target="_blank">Hugging Face</a></li>
+                    <li><i class="fas fa-search"></i> <a href="https://perplexity.ai" target="_blank">Perplexity AI</a></li>
+                    <li><i class="fas fa-image"></i> <a href="https://www.midjourney.com" target="_blank">Midjourney</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <aside class="right">
+            <div class="card card-custom">
+                <h4>News & Updates</h4>
+                <p>Stay tuned for new project launches and features.</p>
+            </div>
+            <div class="card card-custom" id="weather-card">
+                <h4>Live Weather</h4>
+                <p id="weather-content">Loading weather...</p>
+            </div>
+        </aside>
+    </main>
+
+    <script src="config.js"></script>
+    <script>
+    async function fetchWeather() {
+        try {
+            const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=Ottawa`);
+            const data = await response.json();
+            document.getElementById('weather-content').innerHTML = `${data.location.name}, ${data.current.temp_c}&deg;C, ${data.current.condition.text}`;
+        } catch (error) {
+            document.getElementById('weather-content').innerText = 'Unable to load weather data.';
+        }
+    }
+    fetchWeather();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+# Ignore config files that contain API keys
+config.js
+
+# Ignore environment variables files if you use them
+.env
+.env.local
+.env.*.local
+
+# Node modules (if using Node.js)
+node_modules/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db

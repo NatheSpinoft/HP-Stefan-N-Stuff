@@ -26,6 +26,12 @@ body {
     background-color: #2a2e39;
     padding: 10px 20px;
 }
+
+.sticky-top {
+    position: sticky !important;
+    top:0;
+    z-index: 1020;;
+}
 .card-custom {
     background-color: #f5f5f5;
     color: #1a1a1a;

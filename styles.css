@@ -93,6 +93,17 @@ body {
     text-decoration: underline;
 }
 
+ul.list-unstyled li {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* space between icon and text */
+    padding: 5px 0;
+}
+ul.list-unstyled li i {
+    min-width: 20px; /* ensures icons line up */
+    text-align: center;
+}
+
 #weather-card {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;

@@ -46,22 +46,132 @@
     </nav>
 
     <!-- Main Content Area -->
-    <main class="container-fluid my-4">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="card card-custom p-4 mb-4">
-                    <h2>Relational Databases</h2>
-                    <p><a href="#">Relational DB entry form receipts - PostgreSQL</a></p>
-                    <p><a href="#">Relational DB entry form COGS - MariaDB</a></p>
-                    <p><a href="CashFlowMySQL.php">Relational DB entry form Cash Flow - MySQL</a></p>
+    <main class="container-fluid main-content">
+        <section class="left">
+            <div class="card card-custom">
+                <h4>Cash Flow</h4>
+<!-- CASH FLOW PART --> 
+        <?php
+        //Prepare Connection
+if ($_SERVER["REQUEST_METHOD"] =="POST") {
 
-                    <h2 class="mt-4">Other</h2>
-                    <p><a href="fahrenheit.html">Fahrenheit</a></p>
-                    <p><a href="#">JavaScript Counter</a></p>
-                    <p><a href="#">JavaScript List</a></p>
-                    <p><a href="#">JavaScript Array</a></p>
-                </div>
+        $dns = "mysql:host=localhost;dbname=cashflowdb";
+        $username = "tester";
+        $password = "password";
+
+        try{
+            $db = new PDO($dns,$username, $password);
+
+        }catch (Exception $e) {
+            echo "Database error: " . $e->getMessage();
+            exit;
+        }
+
+        //Get posted values
+        $date = $_POST['trans_date'];
+        $desc = $_POST['description'];
+        $amount = $_POST['amount'];
+        $type = $_POST['type'];
+        $cat = $_POST['category'];
+
+        // Simple insert
+        $sql = "INSERT INTO transactions (trans_date, description, amount, type, category, created_at)
+            VALUES (:date, :desc, :amount, :type, :cat, NOW())";
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':date', $date);
+        $stmt->bindParam(':desc', $desc);
+        $stmt->bindParam(':amount', $amount);
+        $stmt->bindParam(':type', $type);
+        $stmt->bindParam(':cat', $cat);
+
+        $stmt->execute();
+}
+
+
+
+        ?>
+<form method="POST" class="mb-4">
+    <div class="row g-2">
+        <div class="col-md-2">
+            <input type="date" name="trans_date" class="form-control" required>
+        </div>
+        <div class="col-md-2">
+            <input type="text" name="description" class="form-control" placeholder="Description" required>
+        </div>
+        <div class="col-md-2">
+            <input type="number" step="0.01" name="amount" class="form-control" placeholder="Amount" required>
+        </div>
+        <div class="col-md-2">
+            <select name="type" class="form-select" required>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="text" name="category" class="form-control" placeholder="Category" required>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Add Transaction</button>
+        </div>
+    </div>
+</form>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>Date</td>
+                <td>Description</td>
+                <td>Amount</td>
+                <td>Type</td>
+                <td>Category</td>
+                <td>Date Time</td>
+            </tr>
+        </thead>
+        <tbody>
+    <?php
+        //Prepare Connection
+        $dns = "mysql:host=localhost;dbname=cashflowdb";
+        $username = "tester";
+        $password = "password";
+
+        //Establish Connection
+        try {
+            $db = new PDO($dns,$username,$password);
+        }catch(Exception $e){
+            $error_message = $e->getMessage();
+            echo "<p>Error Message: $error_message</p>";
+        }
+
+        //Display Table
+        $query = "SELECT * FROM transactions";
+        $statement = $db->prepare($query);
+        $statement->execute();
+        
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            echo "<tr>";
+            echo "<td>" . htmlspecialchars($row['ID']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['trans_date']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['description']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['amount']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['type']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['category']) . "</td>";
+            echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
+            echo "</tr>";
+        }
+        //Close Table
+
+        $statement->closeCursor();
+    ?>
+    </tbody>
+    </table>
+
+
+
+
+<!-- CASH FLOW END --> 
             </div>
+        </section>
         <aside class="right">
             <div class="card card-custom">
                 <h4>News & Updates</h4>

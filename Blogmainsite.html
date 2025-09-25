@@ -49,134 +49,30 @@
     <main class="container-fluid main-content">
         <section class="left">
             <div class="card card-custom">
-                <h4>Cash Flow</h4>
-<!-- CASH FLOW PART --> 
-        <?php
-        //Prepare Connection
-if ($_SERVER["REQUEST_METHOD"] =="POST") {
-
-        $dns = "mysql:host=localhost;dbname=cashflowdb";
-        $username = "tester";
-        $password = "password";
-
-        try{
-            $db = new PDO($dns,$username, $password);
-
-        }catch (Exception $e) {
-            echo "Database error: " . $e->getMessage();
-            exit;
-        }
-
-        //Get posted values
-        $date = $_POST['trans_date'];
-        $desc = $_POST['description'];
-        $amount = $_POST['amount'];
-        $type = $_POST['type'];
-        $cat = $_POST['category'];
-
-        // Simple insert
-        $sql = "INSERT INTO transactions (trans_date, description, amount, type, category, created_at)
-            VALUES (:date, :desc, :amount, :type, :cat, NOW())";
-
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':date', $date);
-        $stmt->bindParam(':desc', $desc);
-        $stmt->bindParam(':amount', $amount);
-        $stmt->bindParam(':type', $type);
-        $stmt->bindParam(':cat', $cat);
-
-        $stmt->execute();
-}
-
-
-
-        ?>
-<form method="POST" class="mb-4">
-    <div class="row g-2">
-        <div class="col-md-2">
-            <input type="date" name="trans_date" class="form-control" required>
-        </div>
-        <div class="col-md-2">
-            <input type="text" name="description" class="form-control" placeholder="Description" required>
-        </div>
-        <div class="col-md-2">
-            <input type="number" step="0.01" name="amount" class="form-control" placeholder="Amount" required>
-        </div>
-        <div class="col-md-2">
-            <select name="type" class="form-select" required>
-                <option value="income">Income</option>
-                <option value="expense">Expense</option>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <input type="text" name="category" class="form-control" placeholder="Category" required>
-        </div>
-        <div class="col-md-2">
-            <button type="submit" class="btn btn-primary w-100">Add Transaction</button>
-        </div>
-    </div>
-</form>
-        <table class="table table-striped table-bordered">
-            <thead>
-            <tr>
-                <td>ID</td>
-                <td>Date</td>
-                <td>Description</td>
-                <td>Amount</td>
-                <td>Type</td>
-                <td>Category</td>
-                <td>Date Time</td>
-            </tr>
-        </thead>
-        <tbody>
-    <?php
-        //Prepare Connection
-        $dns = "mysql:host=localhost;dbname=cashflowdb";
-        $username = "tester";
-        $password = "password";
-
-        //Establish Connection
-        try {
-            $db = new PDO($dns,$username,$password);
-        }catch(Exception $e){
-            $error_message = $e->getMessage();
-            echo "<p>Error Message: $error_message</p>";
-        }
-
-        //Display Table
-        $query = "SELECT * FROM transactions";
-        $statement = $db->prepare($query);
-        $statement->execute();
-        
-        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-            echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['ID']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['trans_date']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['description']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['amount']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['type']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['category']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['created_at']) . "</td>";
-            echo "</tr>";
-        }
-        //Close Table
-
-        $statement->closeCursor();
-    ?>
-    </tbody>
-    </table>
-
-
-
-
-<!-- CASH FLOW END --> 
+                <h4>Main Content</h4>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque non tortor et augue porttitor convallis. Quisque sed libero id nunc vehicula lacinia. Donec accumsan augue nec tellus vulputate, sed mattis nisl tincidunt. Cras lobortis ex vel imperdiet dignissim. Sed sagittis, leo a interdum fringilla, velit mi accumsan arcu, nec efficitur nulla magna a augue.
+                </p>
+                <p>
+                    Nulla facilisi. In pulvinar, sapien sed congue lobortis, justo orci gravida elit, et congue nulla nisi a odio. Vestibulum aliquam sem sed malesuada lobortis. Aenean dignissim lorem nec ligula feugiat iaculis. Donec ultrices mauris at elit euismod, vitae fermentum est accumsan. Vestibulum a rutrum nisl. Aliquam erat volutpat. Proin vehicula euismod diam a tincidunt. Integer a diam eu ante imperdiet facilisis. Nulla facilisi. Proin congue pulvinar arcu, nec hendrerit neque laoreet vitae. Nullam ut convallis erat. Aenean a lacus at odio dignissim cursus.
+                </p>
+                <p>
+                    Sed lacinia, nisl nec efficitur tempor, odio turpis facilisis est, nec condimentum enim odio et lorem. Suspendisse potenti. Fusce pulvinar risus quis metus tincidunt, vitae porttitor sapien hendrerit. Vestibulum id eros nec turpis lacinia ullamcorper. Curabitur ac suscipit erat. Sed cursus blandit lorem, ac imperdiet nulla tempor vitae. Nullam lacinia diam non lectus pretium laoreet. Nullam eget commodo ipsum. Sed lacinia, leo vitae tempus rhoncus, justo mi eleifend odio, ut fringilla massa velit vitae purus.
+                </p>
+                <p>
+                    Etiam tincidunt, nisi in fermentum euismod, quam nisi tincidunt nisl, vitae scelerisque libero odio in massa. Morbi eget augue vel libero eleifend fermentum. Vivamus sed sapien sapien. Integer ac risus in neque dignissim rhoncus. Integer luctus arcu non nulla tincidunt, nec porta lacus finibus. Suspendisse at tellus et nisi ultricies viverra. Proin quis urna sem. Sed nec nulla eget turpis accumsan mattis. Proin at nibh odio. In nec suscipit velit, ut pretium turpis.
+                </p>
+                <p>
+                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed ultricies purus et posuere faucibus. Nulla facilisi. In sed felis nec libero pulvinar condimentum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed a erat ac justo blandit posuere nec vel sapien. Phasellus id erat ac libero bibendum porttitor. Aenean imperdiet lorem vitae leo bibendum, at lacinia eros vehicula. Integer suscipit dignissim lorem. Etiam nec nunc nec ante vulputate ultrices. Morbi convallis orci non risus ullamcorper, a dictum leo volutpat. Curabitur fermentum, sapien a lacinia sodales, tellus nisl posuere dolor, ac dignissim nisi lectus non augue.
+                </p>
             </div>
         </section>
         <aside class="right">
             <div class="card card-custom">
                 <h4>News & Updates</h4>
+                <div id=""news-update">
                 <p>Stay tuned for new project launches and features.</p>
-
+                </div>
 <!--
                 
 

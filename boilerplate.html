@@ -70,7 +70,33 @@
         <aside class="right">
             <div class="card card-custom">
                 <h4>News & Updates</h4>
+                <div id="news-updates">
                 <p>Stay tuned for new project launches and features.</p>
+                </div>
+<script>
+async function insertBlogTitle() {
+    try {
+        // Fetch the blog HTML
+        let response = await fetch('blogs/blog-oracle-vm.html');
+        let text = await response.text();
+
+        // Match the first <h1> in the file
+        let match = text.match(/<h1[^>]*>(.*?)<\/h1>/i);
+        let title = match ? match[1] : 'Blog Post';
+
+        // Insert link into the news-updates div
+        let container = document.getElementById('news-updates');
+        if (container) {
+            container.innerHTML = `<a href="blogs/blog-oracle-vm.html">${title}</a>`;
+        }
+
+    } catch (err) {
+        console.error('Error loading blog title:', err);
+    }
+}
+
+insertBlogTitle();
+</script>
             </div>
             <div class="card card-custom">
                 <h4>AI Tools</h4>
